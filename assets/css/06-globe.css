@@ -1,0 +1,61 @@
+/* ============================================================
+   06 · CONTACT GLOBE
+   The dot globe above the closing call to action. Messages arc
+   in from around the world and land on Cardiff, which is the
+   point of the section: whatever you send reaches an actual
+   person, in an actual place.
+
+   Drawn by assets/js/globe.js — no libraries, and the whole
+   world is a 2KB base64 land mask rather than a map image.
+   Purely decorative: if the canvas never runs, the space
+   collapses and nothing is lost.
+   ------------------------------------------------------------
+   Index:  layout · canvas · caption · responsive · reduced motion
+   ============================================================ */
+
+.close .globe-wrap{
+  display: grid;
+  grid-template-columns: minmax(0, 520px) 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.sjh-globe{
+  position: relative;
+  width: 100%;
+  height: 340px;
+  pointer-events: none;
+}
+
+.sjh-globe-canvas{
+  display: block;
+  margin: 0 auto;
+}
+
+.sjh-globe-note{
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--mute);
+  margin-top: 4px;
+}
+
+/* --- stack on anything narrow; the globe goes first so the
+       section still opens with something moving --- */
+@media (max-width: 900px){
+  .close .globe-wrap{
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .sjh-globe{ height: 260px; }
+}
+
+@media (max-width: 520px){
+  .sjh-globe{ height: 210px; }
+}
+
+/* globe.js draws a single still frame when reduce-motion is set,
+   so there is nothing to switch off here — but the caption
+   shouldn't imply movement that isn't happening. */

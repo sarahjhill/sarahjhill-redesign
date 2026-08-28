@@ -14,7 +14,7 @@ dependencies, nothing that can rot. Edit a file, run `./deploy.sh`, done.
 | **SEO** | 100 |
 
 Measured with the Lighthouse CLI, mobile preset.
-First paint 1.2s · Largest paint 1.3s · Blocking time 0ms · Layout shift 0.
+First paint 1.2s · Largest paint 1.5s · Blocking time 10ms · Layout shift 0.
 
 ---
 
@@ -24,6 +24,15 @@ First paint 1.2s · Largest paint 1.3s · Blocking time 0ms · Layout shift 0.
 
 Full instructions, first-time setup and the custom-domain switch are in
 **[DEPLOY.md](DEPLOY.md)**.
+
+## Planning
+
+**[STORYBOARD.md](STORYBOARD.md)** — the eleven scenes, what each one is for,
+and the rule that every animation has to carry meaning.
+
+**[seed-project.sh](seed-project.sh)** — populates GitHub Project #12 with the
+storyboard and the backlog in one command. Needs the GitHub CLI with project
+scope. **[PROJECT-ITEMS.md](PROJECT-ITEMS.md)** is the same list to add by hand.
 
 ## The strategy
 
@@ -46,8 +55,11 @@ assets/
     02-layout.css       Progress bar, nav, hero, section shells, buttons
     03-components.css   Everything that repeats inside a section
     04-motion.css       Reduced-motion overrides (loaded last, wins)
+    05-scene.css        The Cardiff skyline in the hero
+    06-globe.css        The contact globe
   js/
     main.js             All behaviour, indexed at the top of the file
+    globe.js            The dot globe (no libraries, 2KB land mask)
   img/                  Photographs and screenshots
 
 robots.txt              Search engine instructions
@@ -72,6 +84,18 @@ At zero it snaps sharp and the label reads *"they have decided"*. There is a
 and the visitor picks one. Then the reveal: they are the same electrician —
 one just put the proof where the doubt was. It makes the argument happen to
 the reader instead of being told to them. It runs once, when you scroll to it.
+
+**The Cardiff skyline** sits behind the hero, drawn as inline SVG so it costs
+no image requests: the Castle with its clock tower and a fluttering Welsh flag,
+the Principality Stadium with its four masts, Wales Millennium Centre, the
+Pierhead Building, the Norwegian Church, and the water of the bay shimmering
+below. Three depth layers drift apart as the pointer moves, so the city has
+depth rather than being one flat sticker. A scrim keeps the headline clear of
+it — if you ever brighten the buildings, re-check the h1 contrast.
+
+**The contact globe** is your own `globe.js`, retimed to the new palette —
+amber land, flame arcs landing on Cardiff. Still no libraries, still a 2KB
+base64 land mask instead of a map image.
 
 **Other movement:** the progress bar becomes a scroll indicator once the
 countdown finishes; a light follows the cursor across the hero; sections rise
@@ -168,4 +192,3 @@ free website audit Cardiff.
 - More testimonials. The three here are real; more would be better.
 - **A photograph of you actually working** would do more for this page than
   anything else on this list.
-# sarahjhill-redesign

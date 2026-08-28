@@ -55,11 +55,20 @@
 
   /* ---- cursor glow ---- */
   var glow=document.getElementById('glow'), hero=document.querySelector('.hero');
+  var layers=document.querySelectorAll('.scene .layer');
   if(!reduce && matchMedia('(hover:hover)').matches){
     hero.addEventListener('pointermove', function(e){
       var r=hero.getBoundingClientRect();
-      glow.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
+      var px=(e.clientX-r.left)/r.width;          /* 0 → 1 across the hero */
+      glow.style.setProperty('--mx', (px*100)+'%');
       glow.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
+
+      /* skyline parallax — nearer layers drift further, so the city
+         has depth rather than being one flat sticker */
+      layers.forEach(function(l){
+        var d=+l.dataset.depth||0;
+        l.style.transform='translateX('+((px-0.5)*-d)+'px)';
+      });
     });
   }
 

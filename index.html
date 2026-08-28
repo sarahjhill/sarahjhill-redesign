@@ -31,6 +31,8 @@
   <link rel="stylesheet" href="assets/css/01-tokens.css">
   <link rel="stylesheet" href="assets/css/02-layout.css">
   <link rel="stylesheet" href="assets/css/03-components.css">
+  <link rel="stylesheet" href="assets/css/05-scene.css">
+  <link rel="stylesheet" href="assets/css/06-globe.css">
   <link rel="stylesheet" href="assets/css/04-motion.css">
 
   <!-- ============ STRUCTURED DATA ============ -->
@@ -107,6 +109,112 @@
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
   <div class="glow" id="glow" aria-hidden="true"></div>
+      <div class="scene" aria-hidden="true">
+        <svg viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax meet" role="presentation" focusable="false">
+
+          <!-- ---------- far layer: the rest of the city ---------- -->
+          <g class="layer" data-depth="6">
+            <path class="sil" d="M0,352 L0,318 L46,318 L46,300 L92,300 L92,330 L150,330 L150,352 Z"/>
+            <path class="sil" d="M352,352 L352,312 L384,312 L384,296 L410,296 L410,352 Z"/>
+            <path class="sil" d="M786,352 L786,306 L822,306 L822,326 L852,326 L852,352 Z"/>
+            <path class="sil" d="M1330,352 L1330,300 L1362,300 L1362,284 L1396,284 L1396,314 L1440,314 L1440,352 Z"/>
+            <path class="rim" d="M0,318 L46,318 M92,300 L92,330 M1362,284 L1396,284"/>
+          </g>
+
+          <!-- ---------- mid layer: stadium + millennium centre ---------- -->
+          <g class="layer" data-depth="12">
+
+            <!-- Principality Stadium -->
+            <path class="sil-mid" d="M392,352 L392,268 Q392,246 424,242 L748,242 Q780,246 780,268 L780,352 Z"/>
+            <path class="rim" d="M392,258 Q586,226 780,258"/>
+            <!-- four masts -->
+            <g class="rim rim-hot">
+              <path d="M404,242 L404,130 M470,242 L470,138 M702,242 L702,138 M768,242 L768,130"/>
+              <path d="M392,150 L416,150 M458,158 L482,158 M690,158 L714,158 M756,150 L780,150"/>
+              <path d="M404,132 L586,232 M768,132 L586,232 M470,140 L586,236 M702,140 L586,236"/>
+            </g>
+            <g class="win">
+              <rect x="424" y="296" width="16" height="9"/><rect x="452" y="296" width="16" height="9"/>
+              <rect x="480" y="296" width="16" height="9"/><rect x="536" y="296" width="16" height="9"/>
+              <rect x="592" y="296" width="16" height="9"/><rect x="648" y="296" width="16" height="9"/>
+              <rect x="704" y="296" width="16" height="9"/><rect x="732" y="296" width="16" height="9"/>
+            </g>
+
+            <!-- Wales Millennium Centre -->
+            <path class="sil-mid" d="M836,352 L836,304 Q950,214 1064,304 L1064,352 Z"/>
+            <path class="rim" d="M836,304 Q950,216 1064,304"/>
+            <rect class="win-dim" x="884" y="270" width="132" height="14" rx="2"/>
+            <path class="rim rim-hot" d="M884,284 L1016,284"/>
+          </g>
+
+          <!-- ---------- near layer: castle, pierhead, church ---------- -->
+          <g class="layer" data-depth="20">
+
+            <!-- Cardiff Castle -->
+            <path class="sil-near" d="M52,352 Q196,290 340,352 Z"/>
+            <rect class="sil-near" x="150" y="286" width="116" height="66"/>
+            <g class="sil-near">
+              <rect x="150" y="276" width="14" height="12"/><rect x="176" y="276" width="14" height="12"/>
+              <rect x="202" y="276" width="14" height="12"/><rect x="228" y="276" width="14" height="12"/>
+              <rect x="252" y="276" width="14" height="12"/>
+            </g>
+            <path class="rim" d="M150,286 L266,286"/>
+            <rect class="win" x="176" y="306" width="11" height="16" rx="5"/>
+            <rect class="win" x="204" y="306" width="11" height="16" rx="5"/>
+            <rect class="win" x="232" y="306" width="11" height="16" rx="5"/>
+
+            <!-- the clock tower -->
+            <rect class="sil-near" x="282" y="198" width="44" height="154"/>
+            <path class="sil-near" d="M276,198 L304,160 L332,198 Z"/>
+            <circle class="win" cx="304" cy="226" r="10"/>
+            <path class="rim rim-hot" d="M282,198 L326,198"/>
+            <rect class="win-dim" x="292" y="256" width="10" height="18" rx="4"/>
+            <rect class="win-dim" x="308" y="256" width="10" height="18" rx="4"/>
+
+            <!-- the flag -->
+            <path class="rim" d="M304,160 L304,112"/>
+            <g class="flag">
+              <path class="flag-white" d="M304,114 L360,112 Q372,120 384,116 L384,131 Q372,135 360,131 L304,133 Z"/>
+              <path class="flag-green" d="M304,133 L360,131 Q372,135 384,131 L384,146 Q372,150 360,146 L304,148 Z"/>
+              <path class="dragon" d="M318,118 l7,2 3,-3 2,4 6,-1 4,3 8,-1 -3,4 5,2 -6,1 2,4 -5,-2 -3,4 -2,-4 -5,1 1,4 -4,-3 -4,3 1,-5 -6,-2 5,-2 -6,-3 z"/>
+            </g>
+
+            <!-- Pierhead Building -->
+            <rect class="sil-near" x="1090" y="298" width="92" height="54"/>
+            <rect class="sil-near" x="1120" y="234" width="32" height="64"/>
+            <path class="sil-near" d="M1114,234 L1136,202 L1158,234 Z"/>
+            <circle class="win" cx="1136" cy="258" r="8"/>
+            <path class="rim rim-hot" d="M1090,298 L1182,298"/>
+            <g class="win-dim">
+              <rect x="1100" y="314" width="10" height="14"/><rect x="1122" y="314" width="10" height="14"/>
+              <rect x="1144" y="314" width="10" height="14"/><rect x="1166" y="314" width="10" height="14"/>
+            </g>
+
+            <!-- Norwegian Church -->
+            <rect class="sil-near" x="1222" y="314" width="70" height="38"/>
+            <path class="sil-near" d="M1216,314 L1257,286 L1298,314 Z"/>
+            <rect class="sil-near" x="1288" y="290" width="16" height="62"/>
+            <path class="sil-near" d="M1284,290 L1296,250 L1308,290 Z"/>
+            <path class="rim" d="M1216,314 L1257,286 L1298,314"/>
+            <rect class="win" x="1250" y="326" width="12" height="16" rx="6"/>
+          </g>
+
+          <!-- ---------- the bay ---------- -->
+          <rect class="water" x="0" y="352" width="1440" height="68"/>
+          <g>
+            <line class="shimmer" x1="120" y1="366" x2="212" y2="366"/>
+            <line class="shimmer" x1="330" y1="380" x2="452" y2="380"/>
+            <line class="shimmer" x1="560" y1="370" x2="648" y2="370"/>
+            <line class="shimmer" x1="700" y1="392" x2="836" y2="392"/>
+            <line class="shimmer" x1="900" y1="374" x2="984" y2="374"/>
+            <line class="shimmer" x1="1050" y1="388" x2="1168" y2="388"/>
+            <line class="shimmer" x1="1230" y1="368" x2="1318" y2="368"/>
+            <line class="shimmer" x1="240" y1="402" x2="352" y2="402"/>
+            <line class="shimmer" x1="980" y1="404" x2="1092" y2="404"/>
+          </g>
+          <path class="rim rim-hot" d="M0,352 L1440,352"/>
+        </svg>
+      </div>
   <div class="wrap">
     <div class="count" aria-hidden="true">
       <span class="num" id="num">3</span>
@@ -371,6 +479,12 @@
 <!-- ============ CLOSE ============ -->
 <section class="close" id="hello">
   <div class="wrap">
+   <div class="globe-wrap">
+    <div class="stand">
+      <div class="sjh-globe" aria-hidden="true"><canvas class="sjh-globe-canvas"></canvas></div>
+      <p class="sjh-globe-note">Wherever you are, it lands in Cardiff</p>
+    </div>
+   <div>
     <p class="eyebrow stand">Say hello</p>
     <h2 class="stand">Let's get you taken seriously.</h2>
     <p class="lead stand">Tell me what you do and what's driving you mad about it. Two working days,
@@ -379,6 +493,8 @@
       <a class="btn btn-primary" href="mailto:hantaah21@gmail.com">Email me &rarr;</a>
       <a class="btn btn-ghost" href="https://sarahjhill.com/project-os.html">Start a project enquiry</a>
     </div>
+   </div>
+   </div>
   </div>
 </section>
 
@@ -394,5 +510,6 @@
 </footer>
 
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/globe.js" defer></script>
 </body>
 </html>
