@@ -132,3 +132,19 @@ footer a{color:var(--mute);}
   line-height: 1.5;
   max-width: 70ch;
 }
+
+/* the caption under the portrait carries a full sentence now,
+   so it wraps instead of running off the side */
+.abtag{
+  max-width: 92%;
+  line-height: 1.35;
+  bottom: -30px;
+}
+
+/* the portrait is a tall 750x1335 phone photo — cap it so it sits
+   beside the copy rather than towering over it */
+.portrait img{
+  max-height: 620px;
+  object-fit: cover;
+  object-position: 50% 28%;
+}

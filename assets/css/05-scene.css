@@ -110,3 +110,31 @@
   .shimmer, .flag{ animation: none; }
   .layer{ transition: none; }
 }
+
+/* --- the big wheel in the bay ------------------------------------------
+   The only thing in the drawing that turns. It lives on the far right,
+   clear of the headline, which is left-aligned. Pods are circles, so the
+   rotation does not need counter-rotating to keep them upright. */
+.wheel-rim{
+  fill: none;
+  stroke: rgba(255, 176, 32, .34);
+  stroke-width: 1.5;
+}
+.wheel-spoke{
+  fill: none;
+  stroke: rgba(255, 176, 32, .18);
+  stroke-width: 1;
+}
+.pod{ fill: rgba(255, 59, 31, .55); }
+.wheel-hub{ fill: rgba(255, 176, 32, .55); }
+
+.wheel{
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turn 54s linear infinite;
+}
+@keyframes turn{ to{ transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce){
+  .wheel{ animation: none; }
+}
