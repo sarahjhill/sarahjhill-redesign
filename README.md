@@ -14,7 +14,7 @@ dependencies, nothing that can rot. Edit a file, run `./deploy.sh`, done.
 | **SEO** | 100 |
 
 Measured with the Lighthouse CLI, mobile preset.
-First paint 1.2s · Largest paint 1.5s · Blocking time 10ms · Layout shift 0.
+First paint 1.2s · Largest paint 1.6s · Blocking time 10ms · Layout shift 0.
 
 ---
 
@@ -55,11 +55,12 @@ assets/
     02-layout.css       Progress bar, nav, hero, section shells, buttons
     03-components.css   Everything that repeats inside a section
     04-motion.css       Reduced-motion overrides (loaded last, wins)
-    05-scene.css        The Cardiff skyline in the hero
+    05-scene.css        The hero dragon's box and the ember line
     06-globe.css        The contact globe
   js/
     main.js             All behaviour, indexed at the top of the file
     globe.js            The dot globe (no libraries, 2KB land mask)
+    dragon.js           The dot dragon (same technique, 4KB silhouette)
   img/                  Photographs and screenshots
 
 robots.txt              Search engine instructions
@@ -85,13 +86,13 @@ and the visitor picks one. Then the reveal: they are the same electrician —
 one just put the proof where the doubt was. It makes the argument happen to
 the reader instead of being told to them. It runs once, when you scroll to it.
 
-**The Cardiff skyline** sits behind the hero, drawn as inline SVG so it costs
-no image requests: the Castle with its clock tower and a fluttering Welsh flag,
-the Principality Stadium with its four masts, Wales Millennium Centre, the
-Pierhead Building, the Norwegian Church, and the water of the bay shimmering
-below. Three depth layers drift apart as the pointer moves, so the city has
-depth rather than being one flat sticker. A scrim keeps the headline clear of
-it — if you ever brighten the buildings, re-check the h1 contrast.
+**The dragon** sits on the right of the hero, drawn the same way as the contact
+globe: a dot field on canvas, no libraries and no image file. The silhouette is
+1,816 points sampled on a 7px grid and packed one byte per axis — about 4KB for
+the whole animal. It breathes, blinks, and throws a stream of flame particles
+left across the empty half of the hero, which is where the headline is not. The
+dots run hotter the closer they are to its head. Under it: *Content is king.
+Yours should be breathing fire.*
 
 **The contact globe** is your own `globe.js`, retimed to the new palette —
 amber land, flame arcs landing on Cardiff. Still no libraries, still a 2KB
