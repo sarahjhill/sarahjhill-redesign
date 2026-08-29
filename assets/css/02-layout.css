@@ -17,7 +17,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:110;padding:20px 0;
 nav.stuck{background:rgba(10,10,12,.86);backdrop-filter:blur(14px);padding:12px 0;
   box-shadow:0 1px 0 rgba(246,243,237,.12);}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;}
-.brand{font-weight:800;letter-spacing:-.02em;font-size:19px;text-decoration:none;color:var(--paper);}
+.brand{font-weight:800;letter-spacing:-.02em;font-size:19px;text-decoration:none;
+  color:var(--paper);display:block;line-height:1.1;}
+.brand em{display:block;font-style:normal;font-size:10.5px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-top:3px;}
 .brand span{color:var(--flame);}
 .navlinks{display:flex;gap:26px;font-size:15px;font-weight:600;align-items:center;}
 .navlinks a{text-decoration:none;color:var(--paper);opacity:.74;transition:opacity .2s;padding:4px 0;}

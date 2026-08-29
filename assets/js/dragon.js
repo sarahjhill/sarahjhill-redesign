@@ -63,27 +63,48 @@ hidden, and prefers-reduced-motion gets a single still frame.
 		canvas.style.width = W + 'px';
 		canvas.style.height = H + 'px';
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-		/* fit the whole drawing (S wide, S*0.74 tall) inside the box,
-		   anchored bottom-right, with a little breathing room */
-		S = Math.min(W * 0.98, (H * 0.96) / 0.74);
-		ox = W - S;
-		oy = H - S * 0.74;
+		/* the canvas spans the whole hero now, so the fire can cross it.
+		   The dragon still lives on the right; the flame runs left. */
+		/* small enough to sit in the lower-right corner, clear of the
+		   headline. The fire is what fills the rest of the hero. */
+		S = Math.min(W * 0.34, (H * 0.38) / 0.74);
+		ox = W - S * 1.02;
+		oy = H - S * 0.74 - H * 0.02;
 	}
 
 	function px(p) { return ox + p.nx * S; }
 	function py(p) { return oy + p.ny * S * 0.74; }
 
-	/* ---- flame particles ------------------------------------------- */
+	/* ---- flame particles -------------------------------------------
+	   The soft blob is drawn once into an offscreen canvas and then
+	   stamped with drawImage. Building a radial gradient for every
+	   particle on every frame is what made this expensive. */
+	var SPRITE = (function () {
+		var c = document.createElement('canvas'), n = 64;
+		c.width = c.height = n;
+		var g2 = c.getContext('2d');
+		var gr = g2.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2);
+		gr.addColorStop(0,    'rgba(255,231,166,0.95)');
+		gr.addColorStop(0.35, 'rgba(255,150,40,0.55)');
+		gr.addColorStop(1,    'rgba(255,59,31,0)');
+		g2.fillStyle = gr;
+		g2.fillRect(0, 0, n, n);
+		return c;
+	}());
+
+	var MAX_FLAMES = 190;
 	var flames = [];
 	function spawn() {
+		if (flames.length >= MAX_FLAMES) { return; }
 		var mx = ox + MOUTH.nx * S, my = oy + MOUTH.ny * S * 0.74;
 		flames.push({
 			x: mx, y: my + (Math.random() - 0.5) * S * 0.06,
-			vx: -(0.9 + Math.random() * 1.9),
-			vy: (Math.random() - 0.62) * 0.42,
-			r: S * (0.010 + Math.random() * 0.020),
+			x0: mx,
+			vx: -(1.6 + Math.random() * 2.6),
+			vy: (Math.random() - 0.6) * 0.34,
+			r: S * (0.012 + Math.random() * 0.024),
 			life: 0,
-			max: 90 + Math.random() * 80
+			max: 460 + Math.random() * 260
 		});
 	}
 
@@ -98,16 +119,16 @@ hidden, and prefers-reduced-motion gets a single still frame.
 		for (i = flames.length - 1; i >= 0; i--) {
 			f = flames[i];
 			k = f.life / f.max;
-			var a = k < 0.14 ? k / 0.14 : (1 - k) * 0.85;
-			var g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r * (1 + k * 2.4));
-			g.addColorStop(0, 'rgba(255,225,150,' + (a * 0.85) + ')');
-			g.addColorStop(0.45, 'rgba(255,140,32,' + (a * 0.55) + ')');
-			g.addColorStop(1, 'rgba(255,59,31,0)');
-			ctx.fillStyle = g;
-			ctx.beginPath();
-			ctx.arc(f.x, f.y, f.r * (1 + k * 2.4), 0, 6.2832);
-			ctx.fill();
+			/* how far across the hero it has drifted, 0 at the mouth, 1 at the far edge */
+			var travel = Math.min((f.x0 - f.x) / Math.max(f.x0, 1), 1);
+			var fade = 1 - travel * 0.88;                 /* faint by the headline */
+			var a = (k < 0.10 ? k / 0.10 : (1 - k)) * 0.9 * fade;
+			if (a <= 0.01) { continue; }
+			var rr = f.r * (1 + k * 5.5);
+			ctx.globalAlpha = a;
+			ctx.drawImage(SPRITE, f.x - rr, f.y - rr, rr * 2, rr * 2);
 		}
+		ctx.globalAlpha = 1;
 
 		/* the body: dots, hotter toward the snout */
 		var bob = reduce ? 0 : Math.sin(t / 46) * (S * 0.012);
@@ -159,11 +180,11 @@ hidden, and prefers-reduced-motion gets a single still frame.
 	function step() {
 		t++;
 		if (!reduce) {
-			if (t % 2 === 0) { spawn(); }
+			if (t % 3 === 0) { spawn(); }
 			for (var i = flames.length - 1; i >= 0; i--) {
 				var f = flames[i];
-				f.x += f.vx; f.y += f.vy; f.vy -= 0.010; f.life++;
-				if (f.life > f.max || f.x < -S * 0.4) { flames.splice(i, 1); }
+				f.x += f.vx; f.y += f.vy; f.vy -= 0.006; f.life++;
+				if (f.life > f.max || f.x < -60) { flames.splice(i, 1); }
 			}
 		}
 		draw();
@@ -175,8 +196,8 @@ hidden, and prefers-reduced-motion gets a single still frame.
 
 	resize();
 	if (reduce) {
-		for (var n = 0; n < 40; n++) { spawn(); }
-		for (var m = 0; m < 60; m++) {
+		for (var n = 0; n < 140; n++) { spawn(); }
+		for (var m = 0; m < 300; m++) {
 			for (var j = 0; j < flames.length; j++) {
 				flames[j].x += flames[j].vx; flames[j].y += flames[j].vy; flames[j].life++;
 			}

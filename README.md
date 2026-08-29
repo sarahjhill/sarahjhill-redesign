@@ -86,13 +86,18 @@ and the visitor picks one. Then the reveal: they are the same electrician —
 one just put the proof where the doubt was. It makes the argument happen to
 the reader instead of being told to them. It runs once, when you scroll to it.
 
-**The dragon** sits on the right of the hero, drawn the same way as the contact
+**The dragon** sits in the lower-right of the hero, drawn the same way as the contact
 globe: a dot field on canvas, no libraries and no image file. The silhouette is
 1,816 points sampled on a 7px grid and packed one byte per axis — about 4KB for
 the whole animal. It breathes, blinks, and throws a stream of flame particles
-left across the empty half of the hero, which is where the headline is not. The
-dots run hotter the closer they are to its head. Under it: *Content is king.
-Yours should be breathing fire.*
+across the **whole** hero, dimming as it travels so it is fire at the dragon and
+faint embers by the time it passes under the headline. The dots run hotter the
+closer they are to its head. The hero's sub-headline is the line that explains
+it: *Content is king. Yours should be breathing fire.*
+
+The particles are stamped from one pre-rendered sprite rather than building a
+radial gradient per particle per frame — the first version cost 90ms of blocking
+time and dropped Performance to 99. They are capped at 190 on screen.
 
 **The contact globe** is your own `globe.js`, retimed to the new palette —
 amber land, flame arcs landing on Cardiff. Still no libraries, still a 2KB
