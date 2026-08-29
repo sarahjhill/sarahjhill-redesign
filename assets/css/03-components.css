@@ -256,3 +256,18 @@ section.band .studio .btn-ghost{      /* beats "section.band .btn-ghost" */
   color: var(--paper);
 }
 section.band .studio .btn-ghost:hover{ border-color: var(--paper); }
+
+/* numbered story steps, used on the audit page */
+.steps{margin-top:44px; border-top:1px solid rgba(10,10,12,.15);}
+.step{
+  padding:26px 0; border-bottom:1px solid rgba(10,10,12,.15);
+  display:grid; grid-template-columns:58px 1fr; gap:20px; align-items:start;
+}
+.step .no{font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--flame);padding-top:6px;}
+.step h3{font-size:clamp(19px,2.4vw,25px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px;}
+.step p{color:var(--mute-dark);font-size:16.5px;line-height:1.5;max-width:60ch;}
+@media(max-width:600px){.step{grid-template-columns:38px 1fr;gap:12px;}}
+
+/* source note under a stat row */
+.source{font-size:13px;color:var(--mute);margin-top:14px;max-width:70ch;line-height:1.5;}
+section.band .source{color:#78756f;}

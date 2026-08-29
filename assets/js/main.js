@@ -20,6 +20,7 @@
 
   /* ---- hero countdown ---- */
   function runCountdown(){
+    if(!num || !lbl || !tick){ countdownDone=true; return; }   /* inner pages have no countdown */
     if(reduce){ document.body.classList.add('resolved'); num.textContent='3'; countdownDone=true; return; }
     clearInterval(timer);
     countdownDone=false;
@@ -38,8 +39,8 @@
   /* ---- the bar becomes scroll progress once the countdown is done ---- */
   function onScroll(){
     var y=scrollY||document.documentElement.scrollTop;
-    nav.classList.toggle('stuck', y>40);
-    if(countdownDone){
+    if(nav) nav.classList.toggle('stuck', y>40);
+    if(countdownDone && tick){
       var h=document.documentElement.scrollHeight-innerHeight;
       tick.style.width=(h>0?(y/h)*100:0)+'%';
     }
@@ -56,7 +57,7 @@
   /* ---- cursor glow ---- */
   var glow=document.getElementById('glow'), hero=document.querySelector('.hero');
   var layers=document.querySelectorAll('.scene .layer');
-  if(!reduce && matchMedia('(hover:hover)').matches){
+  if(hero && glow && !reduce && matchMedia('(hover:hover)').matches){
     hero.addEventListener('pointermove', function(e){
       var r=hero.getBoundingClientRect();
       var px=(e.clientX-r.left)/r.width;          /* 0 → 1 across the hero */
@@ -74,7 +75,7 @@
 
   /* ---- mobile menu ---- */
   var burger=document.getElementById('burger');
-  burger.addEventListener('click', function(){
+  if(burger) burger.addEventListener('click', function(){
     var open=nav.classList.toggle('open');
     burger.setAttribute('aria-expanded', open?'true':'false');
   });
@@ -89,7 +90,7 @@
       testRun=false, testTimer=null;
 
   function answer(choice){
-    if(A.disabled) return;
+    if(!A || !B || A.disabled) return;
     clearTimeout(testTimer);
     A.disabled=true; B.disabled=true;
     (choice==='B'?B:choice==='A'?A:null)&&(choice==='B'?B:A).classList.add('chosen');
@@ -106,11 +107,13 @@
     verdict.classList.add('show');
   }
 
-  A.addEventListener('click', function(){ answer('A'); });
-  B.addEventListener('click', function(){ answer('B'); });
+  if(A && B){
+    A.addEventListener('click', function(){ answer('A'); });
+    B.addEventListener('click', function(){ answer('B'); });
+  }
 
   function startTest(){
-    if(testRun) return; testRun=true;
+    if(!bar || testRun) return; testRun=true;
     if(reduce) return;
     bar.classList.add('go');
     testTimer=setTimeout(function(){ answer('none'); }, 3100);
@@ -139,12 +142,17 @@
     el.style.transitionDelay=((i%4)*70)+'ms'; io.observe(el);
   });
 
-  var testIO=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ startTest(); testIO.disconnect(); } });
-  },{threshold:.45});
-  testIO.observe(document.getElementById('test'));
+  var testSection=document.getElementById('test');
+  if(testSection){
+    var testIO=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ startTest(); testIO.disconnect(); } });
+    },{threshold:.45});
+    testIO.observe(testSection);
+  }
 
-  document.getElementById('replay').addEventListener('click', runCountdown);
-  document.getElementById('yr').textContent=new Date().getFullYear();
+  var replay=document.getElementById('replay');
+  if(replay) replay.addEventListener('click', runCountdown);
+  var yr=document.getElementById('yr');
+  if(yr) yr.textContent=new Date().getFullYear();
   runCountdown(); onScroll();
 })();
