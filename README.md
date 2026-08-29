@@ -95,9 +95,18 @@ faint embers by the time it passes under the headline. The dots run hotter the
 closer they are to its head. The hero's sub-headline is the line that explains
 it: *Content is king. Yours should be breathing fire.*
 
-The particles are stamped from one pre-rendered sprite rather than building a
-radial gradient per particle per frame — the first version cost 90ms of blocking
-time and dropped Performance to 99. They are capped at 190 on screen.
+Three things keep it free: the 1,816 dots are stamped into an offscreen canvas
+once per resize and then blitted, the flame particles are one pre-rendered sprite
+rather than a gradient built per particle per frame, and the whole thing paints
+at 30fps. Drawing every dot every frame at 60fps cost 320ms of blocking time.
+Particles are capped at 130.
+
+**The SJH Process speaks to two people.** The first half is what a *client*
+sees — the live project page, everything in one place, one step at a time, no
+chasing — and links to the guest demo on the Project OS site. The second half is
+a dark panel selling the process to *other studios* for £39, rebranded as
+theirs. Templates and the phase count are only mentioned in the studio half; a
+client does not care how many templates there are.
 
 **The contact globe** is your own `globe.js`, retimed to the new palette —
 amber land, flame arcs landing on Cardiff. Still no libraries, still a 2KB

@@ -193,3 +193,66 @@ footer a{color:var(--mute);}
   .who-grid{ grid-template-columns: 1fr; gap: 34px; }
   .who-panel{ position: static; }
 }
+
+/* --- The SJH Process: two audiences, clearly separated -----------------
+   The client half explains what they will see. The studio half sells the
+   process itself. Templates and the full phase count are deliberately
+   only mentioned in the studio block — a client does not care. */
+.split-label{
+  font-size: 12px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--mute-dark);
+  margin: 38px 0 -8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(10,10,12,.16);
+}
+.cta-note{
+  font-size: 15px;
+  color: var(--mute-dark);
+  max-width: 34ch;
+  line-height: 1.4;
+}
+
+/* the studio offer sits in a dark panel, so the two audiences never blur */
+.studio{
+  margin-top: 54px;
+  background: var(--ink-2);
+  color: var(--paper);
+  padding: 42px 40px 46px;
+  border-radius: 3px;
+}
+.studio .split-label{
+  color: var(--amber);
+  border-bottom-color: rgba(246,243,237,.18);
+}
+.studio-h{
+  font-size: clamp(26px, 4vw, 44px);
+  line-height: 1.06;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  margin: 26px 0 16px;
+  max-width: 20ch;
+}
+.studio-h b{ color: var(--flame); }
+.studio-p{
+  font-size: 17.5px;
+  line-height: 1.5;
+  color: #bcbab4;
+  max-width: 62ch;
+}
+.studio .stats{ margin: 34px 0 0; }
+.studio .cta-note{ color: #bcbab4; }
+
+@media (max-width: 620px){
+  .studio{ padding: 30px 22px 34px; }
+}
+
+/* the studio panel is dark inside a light section, so the light-section
+   button rules would render the ghost button dark-on-dark */
+section.band .studio .btn-ghost{      /* beats "section.band .btn-ghost" */
+  border-color: rgba(246,243,237,.32);
+  color: var(--paper);
+}
+section.band .studio .btn-ghost:hover{ border-color: var(--paper); }

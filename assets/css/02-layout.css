@@ -74,8 +74,8 @@ h1 .hit{color:var(--flame);}
 .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:16px;
   padding:16px 26px;border-radius:2px;border:1.5px solid transparent;cursor:pointer;font-family:inherit;
   transition:transform .18s ease,background .18s ease,border-color .18s,color .18s;}
-.btn-primary{background:var(--flame);color:#fff;}
-.btn-primary:hover{transform:translateY(-2px);background:#ff5537;}
+.btn-primary{background:var(--flame);color:var(--ink);}   /* ink on flame = 5.6:1; white was only 3.6:1 */
+.btn-primary:hover{transform:translateY(-2px);background:#ff5537;color:var(--ink);}
 .btn-ghost{border-color:rgba(246,243,237,.32);color:var(--paper);}
 .btn-ghost:hover{border-color:var(--paper);transform:translateY(-2px);}
 section.band .btn-ghost{border-color:rgba(10,10,12,.32);color:var(--ink);}

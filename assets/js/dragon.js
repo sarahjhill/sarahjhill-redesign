@@ -49,13 +49,36 @@ hidden, and prefers-reduced-motion gets a single still frame.
 	/* the mouth sits at the left-most edge, a little below the middle */
 	var MOUTH = { nx: 0.03, ny: 0.24 };
 
-	/* ---- sizing ---------------------------------------------------- */
+	/* ---- sizing ----------------------------------------------------
+	   The 1,816 dots are stamped into an offscreen canvas once, then the
+	   loop just blits that. Drawing every dot on every frame cost 320ms
+	   of blocking time once the canvas grew to fill the hero. */
 	var W = 0, H = 0, dpr = 1, S = 1, ox = 0, oy = 0;
+	var body = document.createElement('canvas'), bctx = body.getContext('2d');
+
+	function buildBody() {
+		var bw = Math.max(1, Math.round(S)), bh = Math.max(1, Math.round(S * 0.74));
+		body.width = Math.round(bw * dpr);
+		body.height = Math.round(bh * dpr);
+		bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		bctx.clearRect(0, 0, bw, bh);
+		for (var i = 0; i < pts.length; i++) {
+			var p = pts[i];
+			var dxh = p.nx - 0.05, dyh = p.ny - 0.24;
+			var heat = 1 - Math.min(Math.sqrt(dxh * dxh + dyh * dyh) * 1.15, 1);
+			var alpha = 0.34 + heat * 0.50;
+			bctx.fillStyle = 'rgba(255,' + Math.round(40 + heat * 120) + ',' +
+				Math.round(24 + heat * 30) + ',' + alpha.toFixed(3) + ')';
+			bctx.beginPath();
+			bctx.arc(p.nx * bw, p.ny * bh, bw * (0.0042 + heat * 0.0030), 0, 6.2832);
+			bctx.fill();
+		}
+	}
 
 	function resize() {
 		var box = canvas.parentNode.getBoundingClientRect();
 		if (!box.width) { return; }
-		dpr = Math.min(window.devicePixelRatio || 1, 2);
+		dpr = Math.min(window.devicePixelRatio || 1, 1.25);   /* decorative: retina buys nothing here */
 		W = Math.round(box.width);
 		H = Math.round(box.height);
 		canvas.width = W * dpr;
@@ -70,6 +93,7 @@ hidden, and prefers-reduced-motion gets a single still frame.
 		S = Math.min(W * 0.34, (H * 0.38) / 0.74);
 		ox = W - S * 1.02;
 		oy = H - S * 0.74 - H * 0.02;
+		buildBody();
 	}
 
 	function px(p) { return ox + p.nx * S; }
@@ -92,7 +116,7 @@ hidden, and prefers-reduced-motion gets a single still frame.
 		return c;
 	}());
 
-	var MAX_FLAMES = 190;
+	var MAX_FLAMES = 130;
 	var flames = [];
 	function spawn() {
 		if (flames.length >= MAX_FLAMES) { return; }
@@ -130,33 +154,15 @@ hidden, and prefers-reduced-motion gets a single still frame.
 		}
 		ctx.globalAlpha = 1;
 
-		/* the body: dots, hotter toward the snout */
+		/* the body: one blit of the pre-stamped dot canvas */
 		var bob = reduce ? 0 : Math.sin(t / 46) * (S * 0.012);
 		var tilt = reduce ? 0 : Math.sin(t / 46) * 0.012;
-
-		for (i = 0; i < pts.length; i++) {
-			var p = pts[i];
-			var x = px(p), y = py(p) + bob;
-			/* rotate very slightly around the shoulder */
-			var cxp = ox + S * 0.8, cyp = oy + S * 0.55;
-			var dx = x - cxp, dy = y - cyp;
-			var xr = cxp + dx * Math.cos(tilt) - dy * Math.sin(tilt);
-			var yr = cyp + dx * Math.sin(tilt) + dy * Math.cos(tilt);
-
-			var dxh = p.nx - 0.05, dyh = p.ny - 0.24;
-			var heat = 1 - Math.min(Math.sqrt(dxh * dxh + dyh * dyh) * 1.15, 1);  /* head is hottest */
-			var flick = reduce ? 0 : Math.sin(t / 15 + p.nx * 9 + p.ny * 5) * 0.10;
-			var alpha = 0.30 + heat * 0.52 + flick;
-			if (alpha < 0.06) { alpha = 0.06; }
-
-			var r = Math.round(255);
-			var gch = Math.round(40 + heat * 120);
-			var bch = Math.round(24 + heat * 30);
-			ctx.fillStyle = 'rgba(' + r + ',' + gch + ',' + bch + ',' + alpha.toFixed(3) + ')';
-			ctx.beginPath();
-			ctx.arc(xr, yr, S * (0.0042 + heat * 0.0030), 0, 6.2832);
-			ctx.fill();
-		}
+		ctx.save();
+		ctx.translate(ox + S * 0.8, oy + S * 0.55 + bob);
+		ctx.rotate(tilt);
+		ctx.translate(-(ox + S * 0.8), -(oy + S * 0.55));
+		ctx.drawImage(body, ox, oy, S, S * 0.74);
+		ctx.restore();
 
 		/* the eye */
 		var ex = ox + 0.30 * S, ey = oy + 0.22 * S * 0.74 + bob;
@@ -179,8 +185,11 @@ hidden, and prefers-reduced-motion gets a single still frame.
 
 	function step() {
 		t++;
+		/* paint every other frame. At 60fps this fire looks identical and
+		   costs half the main thread. */
+		if (t % 2) { raf = requestAnimationFrame(step); return; }
 		if (!reduce) {
-			if (t % 3 === 0) { spawn(); }
+			spawn();
 			for (var i = flames.length - 1; i >= 0; i--) {
 				var f = flames[i];
 				f.x += f.vx; f.y += f.vy; f.vy -= 0.006; f.life++;
