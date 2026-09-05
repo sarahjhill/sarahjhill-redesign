@@ -186,7 +186,7 @@ PAGES["website-audit.html"] = dict(
     "@type": "Service",
     "name": "The Doubt Audit",
     "serviceType": "Website review",
-    "provider": { "@type": "Person", "name": "Sarah Hill", "url": "https://sarahjhill.com/" },
+    "provider": { "@type": "Person", "name": "Sarah J Hill", "url": "https://sarahjhill.com/" },
     "areaServed": { "@type": "Country", "name": "United Kingdom" },
     "description": "A free website review judged the way a doubtful customer judges it.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" }
@@ -307,10 +307,11 @@ PAGES["project-os.html"] = dict(
     ogtitle="Nobody should have to type &ldquo;any update?&rdquo;",
     ogtype="website",
     backhref="index.html", backtext="Back to the start",
-    eyebrow="The SJH Process",
+    eyebrow="The SJH Process &mdash; my custom client process",
     h1="Nobody should have to type <span class=\"hit\">&ldquo;any update?&rdquo;</span>",
-    lead=("The industry standard is three weeks of silence and a hopeful email. I wrote my own tool "
-          "so that never happens on my watch &mdash; and you can own it too."),
+    lead=("The industry standard is three weeks of silence and a hopeful email. I built my own "
+          "custom client process instead &mdash; streamlined, transparent, and clean enough that "
+          "you'll always know exactly where things stand. And you can own it too."),
     herocta=f"""    <div class="cta-row">
       <a class="btn btn-primary" href="{DEMO}" target="_blank" rel="noopener">Look round a real project &rarr;</a>
       <a class="btn btn-ghost" href="#studio">Licence it &mdash; &pound;39</a>
@@ -327,7 +328,7 @@ PAGES["project-os.html"] = dict(
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Any modern browser",
     "url": "https://sarahjhill.github.io/project-os/",
-    "author": { "@type": "Person", "name": "Sarah Hill", "url": "https://sarahjhill.com/" },
+    "author": { "@type": "Person", "name": "Sarah J Hill", "url": "https://sarahjhill.com/" },
     "description": "A twelve-phase project delivery system with 69 guided tasks, 72 templates and a client sign-in.",
     "offers": { "@type": "Offer", "price": "39", "priceCurrency": "GBP" }
   }""",
@@ -367,8 +368,10 @@ PAGES["project-os.html"] = dict(
         + f"""    </div>
     <div class="cta-row stand" style="margin-top:30px;">
       <a class="btn btn-primary" href="{DEMO}" target="_blank" rel="noopener">Look round a real project &rarr;</a>
-      <span class="cta-note">A working demo, loaded with a made-up client. Nothing to sign up for.</span>
+      <a class="btn btn-ghost" href="{PROJECT_OS}#templates" target="_blank" rel="noopener">Start with my intake questionnaire &rarr;</a>
     </div>
+    <p class="cta-note" style="margin-top:10px;">Left one's a working demo, loaded with a made-up client.
+      Right one's the actual first template &mdash; nothing to sign up for either way.</p>
   </div>
 </section>
 
@@ -447,7 +450,7 @@ PAGES["cardiff-community-meals.html"] = dict(
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "name": "Cardiff Community Meals",
-    "creator": { "@type": "Person", "name": "Sarah Hill", "url": "https://sarahjhill.com/" },
+    "creator": { "@type": "Person", "name": "Sarah J Hill", "url": "https://sarahjhill.com/" },
     "about": "A not-for-profit platform connecting Cardiff kitchens with neighbours who need a hot meal.",
     "inLanguage": ["en-GB", "cy"]
   }""",
@@ -548,7 +551,7 @@ PAGES["emails-media.html"] = dict(
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Campaign design — email, print and video",
-    "provider": { "@type": "Person", "name": "Sarah Hill", "url": "https://sarahjhill.com/" },
+    "provider": { "@type": "Person", "name": "Sarah J Hill", "url": "https://sarahjhill.com/" },
     "areaServed": { "@type": "Country", "name": "United Kingdom" },
     "description": "Campaign emails, posters, flyers and promo video for community organisations, schools and small charities."
   }""",
@@ -645,7 +648,7 @@ PAGES["portfolio-project.html"] = dict(
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     "name": "Muslim Bookers",
-    "creator": { "@type": "Person", "name": "Sarah Hill", "url": "https://sarahjhill.com/" },
+    "creator": { "@type": "Person", "name": "Sarah J Hill", "url": "https://sarahjhill.com/" },
     "about": "A halal travel booking site built around trust, reviews and honest pricing."
   }""",
     body=(
