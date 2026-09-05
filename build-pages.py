@@ -107,7 +107,7 @@ SHELL = """<!DOCTYPE html>
     <p class="lead stand">Tell me what you do and what's driving you mad about it. Two working days,
       an honest answer &mdash; even if that answer is &ldquo;this isn't for you, and here's why&rdquo;.</p>
     <div class="cta-row stand" style="margin-top:32px;">
-      <a class="btn btn-primary" href="mailto:{email}">Email me &rarr;</a>
+      <a class="btn btn-primary" href="{project_os}#templates" target="_blank" rel="noopener">Send your brief &rarr;</a>
       <a class="btn btn-ghost" href="{demo}" target="_blank" rel="noopener">See the process &rarr;</a>
     </div>
    </div>
@@ -699,7 +699,7 @@ PAGES["portfolio-project.html"] = dict(
 def build():
     for slug, p in PAGES.items():
         html = SHELL.format(
-            site=SITE, slug=slug, email=EMAIL, demo=DEMO, portfolio=PORTFOLIO,
+            site=SITE, slug=slug, email=EMAIL, demo=DEMO, portfolio=PORTFOLIO, project_os=PROJECT_OS,
             title=p["title"], desc=p["desc"], ogtitle=p["ogtitle"], ogtype=p["ogtype"],
             backhref=p["backhref"], backtext=p["backtext"],
             eyebrow=p["eyebrow"], h1=p["h1"], lead=p["lead"],
