@@ -15,6 +15,7 @@ SITE = "https://sarahjhill.com"
 EMAIL = "sarah@sarahjhill.com"
 DEMO = "https://sarahjhill.github.io/project-os/app.html?guest=1"
 PROJECT_OS = "https://sarahjhill.github.io/project-os/"
+PORTFOLIO = "https://sarahjhill.com/portfolio/"
 
 SHELL = """<!DOCTYPE html>
 <html lang="en-GB">
@@ -72,7 +73,8 @@ SHELL = """<!DOCTYPE html>
       <a href="index.html#test">The 3-second test</a>
       <a href="index.html#about">About me</a>
       <a href="project-os.html">SJH Process</a>
-      <a class="navcta" href="website-audit.html">Free Doubt Audit</a>
+      <a href="{portfolio}">Portfolio</a>
+      <a class="navcta" href="mailto:{email}?subject=My%20brief">Send your brief</a>
     </div>
   </div>
 </nav>
@@ -103,7 +105,7 @@ SHELL = """<!DOCTYPE html>
     <p class="eyebrow stand">Say hello</p>
     <h2 class="stand">Let's get you taken seriously.</h2>
     <p class="lead stand">Tell me what you do and what's driving you mad about it. Two working days,
-      an honest answer, even if the honest answer is &ldquo;not me &mdash; try her instead&rdquo;.</p>
+      an honest answer &mdash; even if that answer is &ldquo;this isn't for you, and here's why&rdquo;.</p>
     <div class="cta-row stand" style="margin-top:32px;">
       <a class="btn btn-primary" href="mailto:{email}">Email me &rarr;</a>
       <a class="btn btn-ghost" href="{demo}" target="_blank" rel="noopener">See the process &rarr;</a>
@@ -161,16 +163,17 @@ PAGES["website-audit.html"] = dict(
     desc=("A free website review judged the way a doubtful customer judges it — on a phone, "
           "in a hurry, hunting for a reason to say no. Plain English, two working days, "
           "no invented numbers."),
-    ogtitle="How many decide against you before they ring?",
+    ogtitle="You've already got a website. Is it actually working?",
     ogtype="website",
     backhref="index.html", backtext="Back to the start",
-    eyebrow="The Doubt Audit &mdash; free, no catch",
-    h1="How many decide against you <span class=\"hit\">before they ring</span>?",
-    lead=("You'll never know. There's no missed-call list for &ldquo;looked a bit unconvincing&rdquo;. "
-          "So I'll go through your site the way they do &mdash; on a phone, in a hurry, hunting for a "
-          "reason to say no &mdash; and tell you which bits have gone cold and which bits are still hot."),
+    eyebrow="Already got a website? &mdash; free, no catch",
+    h1="You built a website. <span class=\"hit\">Having one isn't the same as it working.</span>",
+    lead=("You'll never know how many people quietly left. There's no missed-call list for "
+          "&ldquo;looked a bit unconvincing&rdquo;. So I'll go through your site the way your "
+          "customers do &mdash; on a phone, in a hurry, hunting for a reason to say no &mdash; "
+          "and tell you which bits have gone cold and which bits are still hot."),
     herocta=f"""    <div class="cta-row">
-      <a class="btn btn-primary" href="mailto:{EMAIL}?subject=Doubt%20Audit%20request">Get my Doubt Audit &rarr;</a>
+      <a class="btn btn-primary" href="mailto:{EMAIL}?subject=Doubt%20Audit%20request">Get my free website review &rarr;</a>
       <a class="btn btn-ghost" href="#check">What I actually check</a>
     </div>
     <div class="chips">
@@ -288,7 +291,7 @@ PAGES["website-audit.html"] = dict(
               "You lose", "The time it took to send me the address.")
         + f"""    </div>
     <div class="cta-row stand" style="margin-top:32px;">
-      <a class="btn btn-primary" href="mailto:{EMAIL}?subject=Doubt%20Audit%20request">Get my Doubt Audit &rarr;</a>
+      <a class="btn btn-primary" href="mailto:{EMAIL}?subject=Doubt%20Audit%20request">Get my free website review &rarr;</a>
     </div>
   </div>
 </section>
@@ -693,7 +696,7 @@ PAGES["portfolio-project.html"] = dict(
 def build():
     for slug, p in PAGES.items():
         html = SHELL.format(
-            site=SITE, slug=slug, email=EMAIL, demo=DEMO,
+            site=SITE, slug=slug, email=EMAIL, demo=DEMO, portfolio=PORTFOLIO,
             title=p["title"], desc=p["desc"], ogtitle=p["ogtitle"], ogtype=p["ogtype"],
             backhref=p["backhref"], backtext=p["backtext"],
             eyebrow=p["eyebrow"], h1=p["h1"], lead=p["lead"],
